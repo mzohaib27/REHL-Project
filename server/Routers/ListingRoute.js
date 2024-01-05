@@ -11,5 +11,15 @@ listingRouter.post(
   [UrlEncodedParser, verifyUser.verifyToken],
   ListingController.addnewProperty
 );
+listingRouter.get(
+  "/getlisting/:id",
+  verifyUser.verifyToken,
+  ListingController.getlistings
+);
+listingRouter.delete(
+  "/delete/:id",
+  verifyUser.verifyToken,
+  ListingController.deleteListing
+);
 
 module.exports = listingRouter;

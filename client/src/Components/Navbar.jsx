@@ -40,10 +40,13 @@ const Navbar = () => {
           {" "}
           <button className="nav-btn px-4 py-2">About</button>
         </Link>
-        <Link to={"/contact"}>
-          {" "}
-          <button className="nav-btn px-4 py-2">Contact</button>
-        </Link>
+        {currentUser ? (
+          <Link to={"/createlisting"}>
+            <button className="nav-btn px-4 py-2">Create Listing</button>
+          </Link>
+        ) : (
+          ""
+        )}
         {!currentUser ? (
           <Link to={"/signin"}>
             {" "}

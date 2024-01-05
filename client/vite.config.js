@@ -5,13 +5,16 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-      "/auth": {
+      "/server/auth": {
         target: "http://localhost:7000",
         secure: false,
       },
-      "/add": {
+      "/server/listing": {
         target: "http://localhost:7000",
-        secure: false,
+      },
+      "/server/delete": {
+        target: "http://localhost:7000",
+        rewrite: (path) => path.replace(/^\/delete/, ""),
       },
     },
   },

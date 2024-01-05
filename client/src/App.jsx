@@ -13,6 +13,7 @@ import EditProfile from "./Pages/EditProfile";
 import Error from "./Pages/Error";
 import AddListing from "./Pages/AddListing";
 import AdminRoute from "./Pages/AdminRoute";
+import Listing from "./Pages/Listing";
 
 function App() {
   return (
@@ -26,12 +27,13 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
+          <Route path="/createlisting" element={<AddListing />} />
+          <Route path="/listing/:id" element={<Listing />} />
         </Route>
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<AdminRoute />} />
         </Route>
         {/* */}
-        <Route path="/createlisting" element={<AddListing />} />
 
         <Route path="/contact" element={<Contact />} />
         <Route path="/error" element={<Error replace={false} />} />

@@ -13,9 +13,15 @@ app.use(cookieParser());
 app.use(cors());
 // console.log(path.join(__dirname));
 const Port = process.env.PORT;
-app.use("/", require(path.join(__dirname, "/Routers/UserRoutes.js")));
-app.use("/auth", require(path.join(__dirname, "/Routers/authRoutes.js")));
-app.use("/add", require(path.join(__dirname, "/Routers/ListingRoute.js")));
+app.use("/server", require(path.join(__dirname, "/Routers/UserRoutes.js")));
+app.use(
+  "/server/auth",
+  require(path.join(__dirname, "/Routers/authRoutes.js"))
+);
+app.use(
+  "/server/listing",
+  require(path.join(__dirname, "/Routers/ListingRoute.js"))
+);
 app.listen(Port, () => {
   console.log("Server is running on port " + Port + " Successfully");
 });
