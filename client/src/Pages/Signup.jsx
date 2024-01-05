@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Oauth from "../Components/Oauth";
+import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const Signup = () => {
   // initializing useNavigate
@@ -25,7 +26,7 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("/auth/signup", {
+      const res = await fetchWithBaseURL("/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

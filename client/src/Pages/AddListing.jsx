@@ -6,6 +6,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase/firebaseConfig";
+import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const AddListing = () => {
   const [files, setFiles] = useState([]);
@@ -129,7 +130,7 @@ const AddListing = () => {
     try {
       setLoading(true);
       setError(false);
-      const res = await fetch("/add/createlisting", {
+      const res = await fetchWithBaseURL("/add/createlisting", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

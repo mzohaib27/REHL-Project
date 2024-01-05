@@ -10,6 +10,7 @@ import {
   updateUserSuccess,
   updateUserStart,
 } from "../Redux/user/userSlice";
+import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const EditProfile = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -43,7 +44,7 @@ const EditProfile = () => {
       // Real Code.....
 
       dispatch(updateUserStart());
-      const res = await fetch(`/update/${currentUser._id}`, {
+      const res = await fetchWithBaseURL(`/update/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,6 +11,7 @@ import {
   deleteUserFailed,
   deleteUserSuccess,
 } from "../Redux/user/userSlice";
+import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const Profile = () => {
   // Accessing Redux State By useSelector
@@ -24,7 +25,7 @@ const Profile = () => {
     e.preventDefault();
     dispatch(signOutStart());
     try {
-      const res = await fetch("/auth/signout");
+      const res = await fetchWithBaseURL("/auth/signout");
       const data = await res.json();
       if (data.success === false) {
         dispatch(signOutFailed(data.message));
@@ -42,7 +43,9 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = fetch(`/delete/${currentUser._id}`, { method: "DELETE" });
+      const res = fetchWithBaseURL(`/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
       const data = (await res).json();
       if (data.success === false) {
         dispatch(deleteUserFailed(data.message));

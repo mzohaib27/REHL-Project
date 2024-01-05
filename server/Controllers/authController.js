@@ -30,7 +30,7 @@ exports.signup = async (req, res, next) => {
 exports.signin = async (req, res, next) => {
   const { email, password } = req.body;
   const validUser = await User.findOne({ email: email });
-  if (!validUser) return next(errorHandler(404, "User Not Found..."));
+  if (!validUser) return errorHandler(404, "User Not Found...", next);
   const validPassword = bcrypt.compareSync(password, validUser.password);
   if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
   // if Email and Password Match Then create Token...

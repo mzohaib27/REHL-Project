@@ -8,6 +8,7 @@ import {
   signInFailed,
 } from "../Redux/user/userSlice";
 import Oauth from "../Components/Oauth";
+import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const Signin = () => {
   // initializing useNavigate
@@ -32,7 +33,7 @@ const Signin = () => {
     try {
       dispatch(signInStart());
 
-      const res = await fetch("/auth/signin", {
+      const res = await fetchWithBaseURL("/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
