@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signInSuccess, signInFailed } from "../Redux/user/userSlice";
 import { fetchWithBaseURL } from "../utils/fetch-url";
+<<<<<<< HEAD
 // import { backendPort } from "../utils/fetch-url";
+=======
+>>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
 
 const Oauth = () => {
   const dispatch = useDispatch();
@@ -18,8 +21,12 @@ const Oauth = () => {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
+<<<<<<< HEAD
       console.log(result.user.email);
       const res = await fetch("http://localhost:8000/server/auth/google", {
+=======
+      const res = await fetchWithBaseURL("/auth/google", {
+>>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
         method: "POST",
         headers: {
           "Content-Type": "application/json",

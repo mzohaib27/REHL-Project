@@ -6,9 +6,14 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase/firebaseConfig";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchWithBaseURL } from "../utils/fetch-url";
+=======
+import { fetchWithBaseURL } from "../utils/fetch-url";
+
+>>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
 const AddListing = () => {
   // initializing useSelector
   const { currentUser } = useSelector((state) => state.user);
@@ -149,7 +154,11 @@ const AddListing = () => {
         return setError("Discount Price must be lower than the regular Price");
       setLoading(true);
       setError(false);
+<<<<<<< HEAD
       const options = {
+=======
+      const res = await fetchWithBaseURL("/add/createlisting", {
+>>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
         method: "POST",
         headers: {
           "Content-Type": "application/json",
