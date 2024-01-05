@@ -38,7 +38,7 @@ exports.updateUser = async (req, res, next) => {
     console.log(rest._doc);
   } catch (error) {
     console.log("something went wrong while updating..." + error);
-    next(errorHandler(401, "update gone wrong..."));
+    next(errorHandler(401, "update gone wrong...", next));
   }
 };
 

@@ -8,7 +8,7 @@ import {
 import { app } from "../firebase/firebaseConfig";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { fetchWithBaseURL } from "../utils/fetch-url";
 const AddListing = () => {
   // initializing useSelector
   const { currentUser } = useSelector((state) => state.user);
@@ -149,16 +149,26 @@ const AddListing = () => {
         return setError("Discount Price must be lower than the regular Price");
       setLoading(true);
       setError(false);
-      const res = await fetch(
-        "http://localhost:7000/server/listing/createlisting",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      };
+
+      const resp = await fetchWithBaseURL("/listing/createlisting", options);
+
+      // const res = await fetch(
+      //   "http://localhost:7000/server/listing/createlisting",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(formData),
+      //   }
+      // );
       const data = await res.json();
       console.log(data);
       if (!res.ok) {

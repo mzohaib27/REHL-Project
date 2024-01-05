@@ -26,7 +26,7 @@ const Profile = () => {
     dispatch(signOutStart());
     try {
       // const res = await fetchWithBaseURL("server/auth/signout");
-      const res = await fetch("http://localhost:7000/server/auth/signout");
+      const res = await fetch("http://localhost:8000/server/auth/signout");
       const data = await res.json();
       console.log(data);
       if (data.success === false) {

@@ -1,7 +1,7 @@
 exports.errorHandler = (statusCode, message, next) => {
-  const error = new Error();
+  const error = new Error(message);
   error.statusCode = statusCode;
-  error.message = message;
+
   // return
   return next(error);
 };

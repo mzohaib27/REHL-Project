@@ -116,19 +116,23 @@ exports.signup = async (req, res, next) => {
 // Signin Functionality
 
 exports.signin = async (req, res, next) => {
-  const { email, password } = req.body;
-  const validUser = await User.findOne({ email: email });
-  if (!validUser) return errorHandler(404, "User Not Found...", next);
-  const validPassword = bcrypt.compareSync(password, validUser.password);
-  if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
-  // if Email and Password Match Then create Token...
-  const token = jwt.sign({ id: validUser._id }, process.env.JWT_SEC);
-  const { password: pass, ...restInfo } = validUser._doc;
-  // Save Token in Cookies...
-  res
-    .cookie("access_token", token, { httpOnly: true })
-    .status(200)
-    .json(restInfo);
+  try {
+    const { email, password } = req.body;
+    const validUser = await User.findOne({ email: email });
+    if (!validUser) return errorHandler(404, "User Not Found...", next);
+    const validPassword = bcrypt.compareSync(password, validUser.password);
+    if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
+    // if Email and Password Match Then create Token...
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SEC);
+    const { password: pass, ...restInfo } = validUser._doc;
+    // Save Token in Cookies...
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json(restInfo);
+  } catch (error) {
+    next(errorHandler(500, "internal Server Error"));
+  }
 };
 
 exports.signInGoogle = async (req, res, next) => {

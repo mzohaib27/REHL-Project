@@ -52,8 +52,8 @@ const EditProfile = () => {
         },
         body: JSON.stringify(formData),
       });
-      const resp = res.json();
-      console.log("Response is ... " + resp);
+      // const resp = res.json();
+      // console.log("Response is ... " + resp);
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
