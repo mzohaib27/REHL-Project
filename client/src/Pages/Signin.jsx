@@ -37,6 +37,7 @@ const Signin = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          credentials: "include",
         },
         body: JSON.stringify(formData),
       });

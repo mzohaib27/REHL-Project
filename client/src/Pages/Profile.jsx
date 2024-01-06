@@ -25,12 +25,9 @@ const Profile = () => {
     e.preventDefault();
     dispatch(signOutStart());
     try {
-<<<<<<< HEAD
       // const res = await fetchWithBaseURL("server/auth/signout");
-      const res = await fetch("http://localhost:8000/server/auth/signout");
-=======
+      // const res = await fetch("http://localhost:8000/server/auth/signout");
       const res = await fetchWithBaseURL("/auth/signout");
->>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
@@ -49,11 +46,8 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-<<<<<<< HEAD
-      const res = fetchWithBaseURL(`server/delete/${currentUser._id}`, {
-=======
+
       const res = fetchWithBaseURL(`/delete/${currentUser._id}`, {
->>>>>>> 466853a9e9e5f26b7b27a2d2298727663e770801
         method: "DELETE",
       });
       const data = (await res).json();

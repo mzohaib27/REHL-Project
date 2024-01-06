@@ -8,9 +8,12 @@ dotenv.config();
 app.use(express.json());
 // Database Connection
 require(path.join(__dirname, "./DB/Mongodb.js"));
-
+const corsOptions = {
+  credentials: true,
+  origin: "http://localhost:5173", // Update with your frontend URL
+};
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 // console.log(path.join(__dirname));
 const Port = process.env.PORT;
 app.use("/server", require(path.join(__dirname, "/Routers/UserRoutes.js")));
