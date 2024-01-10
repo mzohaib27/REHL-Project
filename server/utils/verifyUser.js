@@ -7,13 +7,13 @@ exports.verifyToken = (req, res, next) => {
 
   if (!Token) return errorHandler(401, "User not verified....", next);
 
-  jwt.verify(Token, process.env.JWT_SEC, (err, user) => {
+  jwt.verify(Token, process.env.JWT_SEC, (err, userinfo) => {
     if (err) {
       errorHandler(403, "Forbidden");
       console.log("Token verification failed:", err);
     }
     // if there is no any error
-    req.user = user;
+    req.user = userinfo;
     console.log("Token verified. User:", user);
     next();
   });

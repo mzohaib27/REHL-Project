@@ -1,4 +1,7 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+
 import {
   getDownloadURL,
   getStorage,
@@ -6,19 +9,29 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase/firebaseConfig";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 
-// import { fetchWithBaseURL } from "../utils/fetch-url";
-
-const AddListing = () => {
-  // initializing useSelector
+const UpdateListing = () => {
   const { currentUser } = useSelector((state) => state.user);
-
-  // initializing useNavigate
+  const [itemData, setItemData] = useState({});
+  console.log(currentUser._id);
+  const params = useParams();
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchedData = async () => {
+      const listingId = params.listingId;
+      // console.log(listingId);
+      const res = await fetch(
+        `http://localhost:8000/server/listing/getlisting/${listingId}`
+      );
+      const data = await res.json();
+      setItemData(data);
+    };
+    fetchedData();
+  }, []);
 
-  // useStates
+  console.log(itemData);
+
+  // update functionality
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -35,18 +48,14 @@ const AddListing = () => {
     furnished: false,
     userRef: currentUser._id,
   });
-
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
   const [showListingErr, setShowListingErr] = useState(false);
   const [showListings, setShowListings] = useState([]);
-  const [imageLoading, setImageLoading] = useState(false);
-
-  console.log(formData);
-  //   Handle Image
-
+  // handleImages
   const handleImages = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -78,7 +87,7 @@ const AddListing = () => {
       setUploading(false);
     }
   };
-  // storeImage Function used in handleImages Function
+  // store images
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -102,7 +111,6 @@ const AddListing = () => {
       );
     });
   };
-
   // HandleRemoveImage Function
   const handleRemoveImage = (index) => {
     setFormData({
@@ -164,9 +172,11 @@ const AddListing = () => {
         return setError("Discount Price must be lower than the regular Price");
       setLoading(true);
       setError(false);
+      const listingId = params.listingId;
+      console.log(listingId);
 
       const res = await fetch(
-        "http://localhost:8000/server/listing/createlisting",
+        `http://localhost:8000/server/listing/updatelisting/${listingId}`,
         {
           method: "POST",
           headers: {
@@ -177,10 +187,7 @@ const AddListing = () => {
       );
       const data = await res.json();
       console.log(data);
-      // if (!res.ok) {
-      //   // console.log("Server responded with an error : " + res.statusText);
-      //   setError("Error on resp is : " + res.statusText);
-      // }
+
       if (data.success === false) {
         setError("Error on Data.success is : " + data.message);
       }
@@ -207,20 +214,20 @@ const AddListing = () => {
       setLoading(false);
     }
   };
+  // delete user listing
 
-  // Return Statement
   return (
     <>
-      <div className=" flex flex-col items-center  space-y-4 h-auto py-12 bg-gray-200">
+      <div className=" flex flex-col items-center  space-y-4 h-auto py-12 bg-gray-100">
         <div className="max-w-2xl">
           <h1 className="text-5xl font-bold italic py-6 text-center">
-            Create Listing
+            Update Listing
           </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col space-y-2 ">
               <input
                 onChange={handleChange}
-                value={formData.name}
+                defaultValue={itemData.title}
                 type="text"
                 maxLength={50}
                 minLength={5}
@@ -231,7 +238,7 @@ const AddListing = () => {
               />
               <input
                 onChange={handleChange}
-                value={formData.address}
+                defaultValue={itemData.address}
                 type="text"
                 maxLength={200}
                 minLength={20}
@@ -242,7 +249,7 @@ const AddListing = () => {
               />
               <textarea
                 onChange={handleChange}
-                value={formData.description}
+                defaultValue={itemData.description}
                 type="textarea"
                 maxLength={1000}
                 minLength={20}
@@ -309,7 +316,7 @@ const AddListing = () => {
                 <div className="flex gap-4 items-center">
                   <input
                     onChange={handleChange}
-                    defaultValue={formData.bedrooms}
+                    defaultValue={itemData.bedrooms}
                     min={1}
                     max={10}
                     type="number"
@@ -321,8 +328,8 @@ const AddListing = () => {
                 <div className="flex gap-4 items-center">
                   <input
                     onChange={handleChange}
-                    defaultValue={formData.bathrooms}
-                    min={2}
+                    defaultValue={itemData.bathrooms}
+                    min={1}
                     max={6}
                     type="number"
                     id="bathrooms"
@@ -335,8 +342,8 @@ const AddListing = () => {
                 <div className="flex gap-4 items-center">
                   <input
                     onChange={handleChange}
-                    defaultValue={formData.regularPrice}
-                    min={700}
+                    defaultValue={itemData.regularPrice}
+                    min={500}
                     max={1000000}
                     type="number"
                     id="regularPrice"
@@ -347,7 +354,7 @@ const AddListing = () => {
                     {formData.type === "rent" ? (
                       <span>( $/month ) </span>
                     ) : (
-                      <span> ( Fixed ) </span>
+                      <span> ( $/Fixed ) </span>
                     )}
                   </h1>
                 </div>
@@ -400,22 +407,21 @@ const AddListing = () => {
               </div>
               <p className="text-red-600 text-base">{imageUploadError}</p>
               <div className="flex flex-col gap-4 my-6">
-                {formData.imageUrls.length > 0 &&
-                  formData.imageUrls.map((imgUrl, i) => (
-                    <div key={i} className="flex justify-between ">
-                      <img
-                        src={imgUrl}
-                        className="w-20 h-20 rounded-lg object-contain"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveImage(i)}
-                        className=" px-1 py-1 rounded-lg text-xl font-bold text-red-500"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
+                {formData.imageUrls.map((imgUrl, i) => (
+                  <div key={i} className="flex justify-between ">
+                    <img
+                      src={imgUrl}
+                      className="w-20 h-20 rounded-lg object-contain"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(i)}
+                      className=" px-1 py-1 rounded-lg text-xl font-bold text-red-500"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
             <button
@@ -423,14 +429,15 @@ const AddListing = () => {
               type="Submit"
               className="px-4 py-2 rounded-lg hover:bg-black bg-gray-900 trans-eff text-white w-full"
             >
-              {loading ? "Creating..." : "Create Listing"}
+              {loading ? "Updating..." : "Update"}
             </button>
             {error && <p className="text-red-500 text-xl ">{error}</p>}
           </form>
         </div>
       </div>
+      {/* End Update */}
     </>
   );
 };
 
-export default AddListing;
+export default UpdateListing;

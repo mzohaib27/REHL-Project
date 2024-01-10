@@ -1,4 +1,7 @@
-import logo from "../../public/Images/Logo.jpg";
+import Logo from "../../public/Images/Logo.jpg";
+import BgImage from "../../public/Images/bg-image.jpg";
 
-const LogoImage = logo;
-export default LogoImage;
+const logo = Logo;
+const bgImage = BgImage;
+
+export { logo, bgImage };

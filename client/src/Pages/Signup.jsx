@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Oauth from "../Components/Oauth";
 import { fetchWithBaseURL } from "../utils/fetch-url";
 

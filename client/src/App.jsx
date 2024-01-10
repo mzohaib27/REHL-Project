@@ -7,12 +7,11 @@ import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import Navbar from "./Components/Navbar";
 import Contact from "./Pages/Contact";
-import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./Pages/PrivateRoute";
-import EditProfile from "./Pages/EditProfile";
 import Error from "./Pages/Error";
 import AddListing from "./Pages/AddListing";
 import AdminRoute from "./Pages/AdminRoute";
+import UpdateListing from "./Pages/UpdateListing";
 import Listing from "./Pages/Listing";
 
 function App() {
@@ -24,14 +23,14 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/createlisting" element={<AddListing />} />
-          <Route path="/listing/:id" element={<Listing />} />
+          {/* <Route path="/profile/edit" element={<EditProfile />} /> */}
+          <Route path="update/listing/:listingId" element={<UpdateListing />} />
+          <Route path="/listing/:listingId" element={<Listing />} />
         </Route>
         <Route element={<AdminRoute />}>
-          <Route path="/admin" element={<AdminRoute />} />
+          <Route path="/createlisting" element={<AddListing />} />
         </Route>
         {/* */}
 

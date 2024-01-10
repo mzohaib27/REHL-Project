@@ -1,7 +1,9 @@
 const ListingModel = require("../Models/ListingModel.js");
 const { errorHandler } = require("../utils/errorHandler.js");
 
-exports.addnewProperty = async (req, res, next) => {
+// Create Listing Function
+
+exports.createListing = async (req, res, next) => {
   console.log("Add Property Function is called");
 
   try {
@@ -12,34 +14,53 @@ exports.addnewProperty = async (req, res, next) => {
   }
 };
 
+// Get all listings Function
 exports.getlistings = async (req, res, next) => {
-  console.log("getListing route is called");
-  console.log(req.user.id);
-  if (req.user.id === req.params.id) {
-    try {
-      const listings = await ListingModel.find({ userRef: req.params.id });
-      res.status(200).json(listings);
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    next(errorHandler(401, "You can only see your own listings..."));
+  try {
+    const listings = await ListingModel.find({});
+    res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get listing by id Function
+
+exports.getListingsById = async (req, res, next) => {
+  try {
+    const listingData = await ListingModel.findOne({ _id: req.params.id });
+    res.status(200).json(listingData);
+  } catch (error) {
+    console.log("Eror while getlisting by id: Error : " + error);
   }
 };
 // Delete User Listings Function
 exports.deleteListing = async (req, res, next) => {
-  const listingData = await ListingModel.findById(req.params.id);
-  if (!listingData) {
-    return next(errorHandler(404, "Listing Not Found"));
-  }
-  if (req.user.id !== listingData.userRef) {
-    return next(errorHandler(401, "You can delete only your own listings"));
-  }
+  // const listingData = await ListingModel.findById(req.params.id);
+  // if (!listingData) {
+  //   return next(errorHandler(404, "Listing Not Found"));
+  // }
+  // if (req.user.id !== listingData.userRef) {
+  //   return next(errorHandler(401, "You can delete only your own listings"));
+  // }
   try {
-    await ListingModel.findByIdAndDelete(req.params.id);
+    const listingData = await ListingModel.findByIdAndDelete(req.params.id);
     res.status(200).json(listingData);
     console.log("Property Deleted Successfully...");
   } catch (error) {
-    next(errorHandler(404, "deleteListing function failed..."));
+    errorHandler(404, "deleteListing function failed...Error is : " + error);
+  }
+};
+
+exports.updateListing = async (req, res, next) => {
+  try {
+    const updatedList = await ListingModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    res.status(200).json(updatedList);
+  } catch (error) {
+    res.status(500).json("updated list failed...Error is : " + error);
   }
 };

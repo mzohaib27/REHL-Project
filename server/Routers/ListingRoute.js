@@ -8,18 +8,29 @@ const verifyUser = require("../utils/verifyUser.js");
 
 listingRouter.post(
   "/createlisting",
-  [UrlEncodedParser, verifyUser.verifyToken],
-  ListingController.addnewProperty
+  // [UrlEncodedParser, verifyUser.verifyToken],
+  UrlEncodedParser,
+  ListingController.createListing
+);
+listingRouter.get(
+  "/getlisting",
+  // verifyUser.verifyToken,
+  ListingController.getlistings
 );
 listingRouter.get(
   "/getlisting/:id",
-  verifyUser.verifyToken,
-  ListingController.getlistings
+  // verifyUser.verifyToken,
+  ListingController.getListingsById
 );
 listingRouter.delete(
   "/delete/:id",
-  verifyUser.verifyToken,
+  // verifyUser.verifyToken,
   ListingController.deleteListing
+);
+listingRouter.post(
+  "/updatelisting/:id",
+  // UrlEncodedParser,
+  ListingController.updateListing
 );
 
 module.exports = listingRouter;

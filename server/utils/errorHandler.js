@@ -3,5 +3,5 @@ exports.errorHandler = (statusCode, message, next) => {
   error.statusCode = statusCode;
 
   // return
-  return next(error);
+  return error;
 };

@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Styles } from "../constants/Styles";
-import Btn from "../Components/Btn";
 import { useDispatch } from "react-redux";
 import {
   signOutStart,
@@ -11,9 +10,9 @@ import {
   deleteUserFailed,
   deleteUserSuccess,
 } from "../Redux/user/userSlice";
-import { fetchWithBaseURL } from "../utils/fetch-url";
 
 const Profile = () => {
+  const navigate = useNavigate();
   // Accessing Redux State By useSelector
   const { currentUser } = useSelector((state) => state.user);
 
@@ -25,9 +24,7 @@ const Profile = () => {
     e.preventDefault();
     dispatch(signOutStart());
     try {
-      // const res = await fetchWithBaseURL("server/auth/signout");
-      // const res = await fetch("http://localhost:8000/server/auth/signout");
-      const res = await fetchWithBaseURL("/auth/signout");
+      const res = await fetch("http://localhost:8000/server/auth/signout");
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
@@ -36,6 +33,9 @@ const Profile = () => {
       }
       dispatch(signOutSuccess(data));
       res.status(200).json(data);
+      console.log("before navigate");
+      navigate("/");
+      console.log("after navigate");
     } catch (error) {
       dispatch(signOutFailed(data.message));
       console.log("Error happened while logout Err : " + error);
@@ -47,14 +47,18 @@ const Profile = () => {
     try {
       dispatch(deleteUserStart());
 
-      const res = fetchWithBaseURL(`/delete/${currentUser._id}`, {
-        method: "DELETE",
-      });
+      const res = fetch(
+        `http://localhost:8000/server/delete/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = (await res).json();
       if (data.success === false) {
         dispatch(deleteUserFailed(data.message));
       }
       dispatch(deleteUserSuccess(data));
+      navigate("/");
     } catch (error) {}
   };
 
@@ -74,11 +78,6 @@ const Profile = () => {
         </div>
         <h1 className={`${Styles.HdTxt}`}>{currentUser.username}</h1>
         <h1 className={`${Styles.BaseTxt}`}>{currentUser.email}</h1>
-        <div className="w-full">
-          <Link to={"/profile/edit"}>
-            <Btn type="Edit Profile" />
-          </Link>
-        </div>
 
         <button
           onClick={SignOutBtnHandler}

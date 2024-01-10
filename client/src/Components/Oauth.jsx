@@ -21,12 +21,12 @@ const Oauth = () => {
       const result = await signInWithPopup(auth, provider);
       console.log(result.user.email);
       // const res = await fetch("http://localhost:8000/server/auth/google", {
-      const res = await fetchWithBaseURL("/auth/google", {
+      const res = await fetch("http://localhost:8000/server/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          credentials: "include",
         },
+        Credential: "include",
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,
