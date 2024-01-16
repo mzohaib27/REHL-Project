@@ -24,7 +24,7 @@ const Home = () => {
       <div className="flex  w-full px-32 py-16 h-[80vh]">
         <div className="flex flex-col w-2/4">
           <h1 className="text-5xl font-bold text-blue-600">
-            Real Estate Holding <span className="text-red-600">Comapany</span>
+            Real Estate Holding <span className="text-red-600">Comapany </span>
             LLC
           </h1>
           <p className="text-xl font-semibold italic text-gray-700 py-12 pr-4">
