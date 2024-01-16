@@ -2,9 +2,9 @@ import React from "react";
 
 const About = () => {
   return (
-    <div>
+    <div className="px-24 py-12">
       <h1 className="text-5xl font-bold italic py-4">About Us</h1>
-      <p className="text-xl font-semibold text-gray-800">
+      <p className="text-xl font-semibold text-gray-800 text-justify">
         Inventcolabs is known for driving innovation in the space of IT
         services. With 8+ years of business-critical exposure serving over 200
         businesses across the globe, we have left a significant mark in the
