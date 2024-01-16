@@ -17,7 +17,11 @@ exports.createListing = async (req, res, next) => {
 // Get all listings Function
 exports.getlistings = async (req, res, next) => {
   try {
-    const listings = await ListingModel.find({});
+    let query = {};
+    if (req.query.search) {
+      query = { description: { $regex: new RegExp(req.query.search, "i") } };
+    }
+    const listings = await ListingModel.find(query);
     res.status(200).json(listings);
   } catch (error) {
     next(error);

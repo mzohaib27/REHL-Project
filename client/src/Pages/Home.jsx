@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { bgImage } from "../constants/constant";
 import { Link } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 const Home = () => {
   const [allData, setAllData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        "http://localhost:8000/server/listing/getlisting"
-      );
+      let url = "http://localhost:8000/server/listing/getlisting";
+      if (searchTerm) {
+        url += `?search=${searchTerm}`;
+      }
+      const res = await fetch(url);
       const data = await res.json();
       setAllData(data);
     };
     fetchData();
-  }, []);
+  }, [searchTerm]);
   // console.log(allData);
   return (
     <>
@@ -38,10 +42,19 @@ const Home = () => {
         </div>
       </div>
       <div className="px-24 py-12 flex flex-col">
-        <div className="py-6 ">
+        <div className="flex justify-between py-6 ">
           <h1 className="text-3xl font-bold italic">
             All you want is <span className="text-red-600">HERE</span>
           </h1>
+          <div className="flex justify-center items-center relative">
+            <input
+              className=" rounded-lg bg-gray-200 p-3 w-24 sm:32 md:w-64 lg:w-72 border-none focus:outline-none"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaSearch className="w-6 h-6  bg-gray-200  cursor-pointer absolute top-3 right-2" />
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-12">
           {allData.map((items, i) => (

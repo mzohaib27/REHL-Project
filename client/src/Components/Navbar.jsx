@@ -65,14 +65,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      {/* Middle */}
-      <form className="hidden hover:shadow-xl trans-eff sm:flex pr-2 rounded-lg relative bg-gray-50 justify-center items-center">
-        <input
-          className=" rounded-lg bg-transparent p-3 w-24 sm:32 md:w-64 lg:w-72 border-none focus:outline-none"
-          placeholder="Search..."
-        />
-        <FaSearch className="w-6 h-6  bg-transparent  cursor-pointer " />
-      </form>
+
       {/* last */}
       <div className="hidden relative lg:flex space-x-4 items-center">
         <Link to={"/"}>
