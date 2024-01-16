@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -16,6 +17,11 @@ const About = () => {
         website could help you land some clients. It can also help with your
         local SEO.
       </p>
+      <Link to={"/"}>
+        <button className="px-4 py-2 my-6 rounded-lg bg-blue-600 text-white hover:bg-blue-700 trans-eff">
+          Go to Home
+        </button>
+      </Link>
     </div>
   );
 };
