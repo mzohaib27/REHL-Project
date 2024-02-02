@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="px-24 py-12">
-      <h1 className="text-5xl font-bold italic py-4">About Us</h1>
+    <div className="px-6 md:px-12 lg:px-24 py-6 md:py-12">
+      <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold italic py-4">
+        About Us
+      </h1>
       <p className="text-xl font-semibold text-gray-800 text-justify">
         Inventcolabs is known for driving innovation in the space of IT
         services. With 8+ years of business-critical exposure serving over 200

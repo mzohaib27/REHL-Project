@@ -20,10 +20,10 @@ const Home = () => {
   }, [searchTerm]);
   // console.log(allData);
   return (
-    <>
-      <div className="flex  w-full px-32 py-16 h-[80vh]">
-        <div className="flex flex-col w-2/4">
-          <h1 className="text-5xl font-bold text-blue-600">
+    <div className="flex flex-col">
+      <div className="lg:flex   w-full px-6 md:px-20 lg:px-24 py-6 md:py-12 lg:py-16 ">
+        <div className="lg:flex sm:flex-col w-full lg:w-2/4">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-blue-600">
             Real Estate Holding <span className="text-red-600">Comapany </span>
             LLC
           </h1>
@@ -33,30 +33,29 @@ const Home = () => {
             Decision Making And Transparency In The Entire Process.
           </p>
         </div>
-        <div className="flex w-2/4">
+        <div className="lg:w-2/4">
           <img
             src={bgImage}
             alt="image"
-            className="bg-cover w-full h-full hover:scale-110 trans-eff cursor-pointer"
+            className="bg-cover w-full h-auto hover:scale-110 trans-eff cursor-pointer"
           />
         </div>
       </div>
-      <div className="px-24 py-12 flex flex-col">
-        <div className="flex justify-between py-6 ">
-          <h1 className="text-3xl font-bold italic">
+      <div className="flex flex-col px-6  md:px-20 lg:px-24 py-6 md:py-12 lg:py-16 ">
+        <div className="md:flex md:justify-between py-6 ">
+          <h1 className="text-2xl lg:text-3xl font-bold italic">
             All you want is <span className="text-red-600">HERE</span>
           </h1>
-          <div className="flex justify-center items-center relative">
+          <div className="flex my-4 relative">
             <input
-              className=" rounded-lg bg-gray-200 p-3 w-24 sm:32 md:w-64 lg:w-72 border-none focus:outline-none"
+              className=" rounded-lg  bg-gray-200 p-3   w-64 lg:w-72 border-none focus:outline-none"
               placeholder="Search..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <FaSearch className="w-6 h-6  bg-gray-200  cursor-pointer absolute top-3 right-2" />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {allData.map((items, i) => (
             <div key={i} className="bg-gray-200 flex flex-col">
               <div>
@@ -86,7 +85,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

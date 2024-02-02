@@ -218,48 +218,54 @@ const UpdateListing = () => {
 
   return (
     <>
-      <div className=" flex flex-col items-center  space-y-4 h-auto py-12 bg-gray-100">
-        <div className="max-w-2xl">
-          <h1 className="text-5xl font-bold italic py-6 text-center">
+      <div className=" flex flex-col items-center px-6 space-y-4 h-auto py-12 bg-gray-100">
+        <div className="">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold italic py-6 text-center">
             Update Listing
           </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col space-y-2 ">
-              <input
-                onChange={handleChange}
-                defaultValue={itemData.title}
-                type="text"
-                maxLength={50}
-                minLength={5}
-                required
-                id="title"
-                className="px-4 py-2 rounded-lg focus:outline-none"
-                placeholder="Title"
-              />
-              <input
-                onChange={handleChange}
-                defaultValue={itemData.address}
-                type="text"
-                maxLength={200}
-                minLength={20}
-                required
-                id="address"
-                className="px-4 py-2 rounded-lg focus:outline-none "
-                placeholder="Address"
-              />
-              <textarea
-                onChange={handleChange}
-                defaultValue={itemData.description}
-                type="textarea"
-                maxLength={1000}
-                minLength={20}
-                required
-                id="description"
-                className="px-4 py-2 rounded-lg focus:outline-none "
-                placeholder="Description"
-              />
+              <div className="w-full">
+                <input
+                  onChange={handleChange}
+                  defaultValue={itemData.title}
+                  type="text"
+                  maxLength={50}
+                  minLength={5}
+                  required
+                  id="title"
+                  className="px-2 w-full md:px-4 py-2 rounded-lg focus:outline-none"
+                  placeholder="Title"
+                />
+              </div>
+              <div>
+                <input
+                  onChange={handleChange}
+                  defaultValue={itemData.address}
+                  type="text"
+                  maxLength={200}
+                  minLength={20}
+                  required
+                  id="address"
+                  className="px-4 py-2 w-full rounded-lg focus:outline-none "
+                  placeholder="Address"
+                />
+              </div>
+              <div>
+                <textarea
+                  onChange={handleChange}
+                  defaultValue={itemData.description}
+                  type="textarea"
+                  maxLength={1000}
+                  minLength={20}
+                  required
+                  id="description"
+                  className="px-4 py-2 w-full rounded-lg focus:outline-none "
+                  placeholder="Description"
+                />
+              </div>
             </div>
-            <div className="flex gap-4">
+            <div className="md:flex gap-4">
               <div className="flex gap-2">
                 <input
                   onChange={handleChange}
@@ -311,7 +317,7 @@ const UpdateListing = () => {
                 <span>Offer</span>
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="md:flex gap-4 space-y-4">
               <div className="flex flex-col gap-4">
                 <div className="flex gap-4 items-center">
                   <input
@@ -381,19 +387,19 @@ const UpdateListing = () => {
                 )}
               </div>
             </div>
-            <div>
+            <div className="space-y-2">
               <p className="text-xl font-semibold">
                 Images:{" "}
                 <span className="text-base ">
                   The first image will be the cover ( max : 6 )
                 </span>
               </p>
-              <div className="flex  gap-4">
+              <div className="sm:flex space-y-4 sm:gap-4">
                 <input
                   onChange={(e) => setFiles(e.target.files)}
                   type="file"
                   accept="images/*"
-                  className="p-2 rounded-lg bg-gray-100 "
+                  className="p-2 rounded-lg bg-gray-300 "
                   multiple
                   id="images"
                 />

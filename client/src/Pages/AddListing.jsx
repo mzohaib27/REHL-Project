@@ -211,9 +211,9 @@ const AddListing = () => {
   // Return Statement
   return (
     <>
-      <div className=" flex flex-col items-center  space-y-4 h-auto py-12 bg-gray-200">
-        <div className="max-w-2xl">
-          <h1 className="text-5xl font-bold italic py-6 text-center">
+      <div className=" flex flex-col items-center p-6 space-y-4 h-auto py-12 bg-gray-100">
+        <div className="">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold italic py-6 text-center">
             Create Listing
           </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -252,7 +252,7 @@ const AddListing = () => {
                 placeholder="Description"
               />
             </div>
-            <div className="flex gap-4">
+            <div className="md:flex gap-4">
               <div className="flex gap-2">
                 <input
                   onChange={handleChange}
@@ -304,8 +304,8 @@ const AddListing = () => {
                 <span>Offer</span>
               </div>
             </div>
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-4">
+            <div className="md:flex  gap-4">
+              <div className="md:flex  flex-col ">
                 <div className="flex gap-4 items-center">
                   <input
                     onChange={handleChange}
@@ -314,7 +314,7 @@ const AddListing = () => {
                     max={10}
                     type="number"
                     id="bedrooms"
-                    className="px-4 py-2 w-24 rounded-lg focus:ouline-none "
+                    className="my-2 px-4 py-2 w-24 rounded-lg focus:ouline-none "
                   />
                   <span>Beds</span>
                 </div>
@@ -326,7 +326,7 @@ const AddListing = () => {
                     max={6}
                     type="number"
                     id="bathrooms"
-                    className="px-4 py-2 w-24 rounded-lg focus:ouline-none "
+                    className="my-2 px-4 py-2 w-24 rounded-lg focus:ouline-none "
                   />
                   <span>Baths</span>
                 </div>
@@ -340,7 +340,7 @@ const AddListing = () => {
                     max={1000000}
                     type="number"
                     id="regularPrice"
-                    className="px-4 py-2 w-24 rounded-lg focus:ouline-none "
+                    className="my-2 px-4 py-2 w-24 rounded-lg focus:ouline-none "
                   />
                   <h1>
                     Regular Price
@@ -374,19 +374,19 @@ const AddListing = () => {
                 )}
               </div>
             </div>
-            <div>
+            <div className="space-y-4">
               <p className="text-xl font-semibold">
                 Images:{" "}
                 <span className="text-base ">
                   The first image will be the cover ( max : 6 )
                 </span>
               </p>
-              <div className="flex  gap-4">
+              <div className="md:flex space-y-2 gap-4">
                 <input
                   onChange={(e) => setFiles(e.target.files)}
                   type="file"
                   accept="images/*"
-                  className="p-2 rounded-lg bg-gray-100 "
+                  className="p-2 rounded-lg bg-gray-300 "
                   multiple
                   id="images"
                 />
