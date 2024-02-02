@@ -13,6 +13,7 @@ import AddListing from "./Pages/AddListing";
 import AdminRoute from "./Pages/AdminRoute";
 import UpdateListing from "./Pages/UpdateListing";
 import Listing from "./Pages/Listing";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -25,7 +26,6 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route element={<PrivateRoute />}>
-          
           <Route path="update/listing/:listingId" element={<UpdateListing />} />
           <Route path="/listing/:listingId" element={<Listing />} />
         </Route>
@@ -38,6 +38,7 @@ function App() {
         <Route path="/error" element={<Error replace={false} />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <Footer />
     </>
   );
 }
